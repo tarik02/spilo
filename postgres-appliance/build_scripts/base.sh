@@ -111,9 +111,9 @@ for version in $DEB_PG_SUPPORTED_VERSIONS; do
             EXTRAS+=("postgresql-${version}-decoderbufs")
         fi
 
-        if [ "${version%.*}" -ge 11 ]; then
-            EXTRAS+=("postgresql-${version}-pgvector")
-        fi
+        # if [ "${version%.*}" -ge 11 ]; then
+        #     EXTRAS+=("postgresql-${version}-pgvector")
+        # fi
 
         if [ "${version%.*}" -lt 11 ]; then
             EXTRAS+=("postgresql-${version}-amcheck")
@@ -194,6 +194,14 @@ apt-get install -y postgresql postgresql-server-dev-all postgresql-all libpq-dev
 for version in $DEB_PG_SUPPORTED_VERSIONS; do
     apt-get install -y "postgresql-server-dev-${version}"
 done
+
+if [ "${version%.*}" -ge 14 ] && [ "${version%.*}" -le 16 ]; then
+    pgvecto_rs_ver=v0.1.11
+    pgvecto_rs_deb="vectors-pg${version%.*}-$pgvecto_rs_ver-$(uname -m)-unknown-linux-gnu.deb"
+    curl -Ls "https://github.com/tensorchord/pgvecto.rs/releases/download/$pgvecto_rs_ver/$pgvecto_rs_deb" -O
+    dpkg -i "$pgvecto_rs_deb"
+    rm "$pgvecto_rs_deb"
+fi
 
 if [ "$DEMO" != "true" ]; then
     for version in $DEB_PG_SUPPORTED_VERSIONS; do
