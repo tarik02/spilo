@@ -197,7 +197,7 @@ done
 
 if [ "${version%.*}" -ge 14 ] && [ "${version%.*}" -le 16 ]; then
     pgvecto_rs_ver=0.2.0
-    pgvecto_rs_deb="vectors-pg${version%.*}_${pgvecto_rs_ver}_$(uname -m).deb"
+    pgvecto_rs_deb="vectors-pg${version%.*}_${pgvecto_rs_ver}_$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/).deb"
     curl -Ls "https://github.com/tensorchord/pgvecto.rs/releases/download/v${pgvecto_rs_ver}/${pgvecto_rs_deb}" -O
     dpkg -i "$pgvecto_rs_deb"
     rm "$pgvecto_rs_deb"
