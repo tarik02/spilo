@@ -196,9 +196,9 @@ for version in $DEB_PG_SUPPORTED_VERSIONS; do
 done
 
 if [ "${version%.*}" -ge 14 ] && [ "${version%.*}" -le 16 ]; then
-    pgvecto_rs_ver=v0.1.11
-    pgvecto_rs_deb="vectors-pg${version%.*}-$pgvecto_rs_ver-$(uname -m)-unknown-linux-gnu.deb"
-    curl -Ls "https://github.com/tensorchord/pgvecto.rs/releases/download/$pgvecto_rs_ver/$pgvecto_rs_deb" -O
+    pgvecto_rs_ver=0.2.0
+    pgvecto_rs_deb="vectors-pg${version%.*}_${pgvecto_rs_ver}_$(uname -m).deb"
+    curl -Ls "https://github.com/tensorchord/pgvecto.rs/releases/download/v${pgvecto_rs_ver}/${pgvecto_rs_deb}" -O
     dpkg -i "$pgvecto_rs_deb"
     rm "$pgvecto_rs_deb"
 fi
